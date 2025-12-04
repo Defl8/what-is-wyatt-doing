@@ -23,16 +23,23 @@ type RequestHandler struct {
 	BaseURL string
 }
 
-func NewRequestHandler(endpoint string) *RequestHandler {
+func NewRequestHandler(endpoint *string) *RequestHandler {
+
+	if endpoint == nil {
+		return &RequestHandler{
+			BaseURL: "",
+		}
+	}
+
 	return &RequestHandler{
-		BaseURL: endpoint,
+		BaseURL: *endpoint,
 	}
 }
 
 func (rH RequestHandler) GetPublicUserEvents(user string) (*[]github.Event, error) {
 	rH.BaseURL = "https://api.github.com/"
 
-	headers := map[string]string {
+	headers := map[string]string{
 		"Accept": "application/vnd.github+json",
 	}
 

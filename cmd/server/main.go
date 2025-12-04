@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/Defl8/what-is-wyatt-doing/internal/requests"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -24,9 +25,16 @@ func main() {
 	// Load Static Content
 	router.Static("/static", "web/static/")
 
+	reqHandler := requests.NewRequestHandler(nil)
+
 	router.GET("/stinky", func(ctx *gin.Context) {
+		events, err := reqHandler.GetPublicUserEvents("Defl8")
+		if err != nil {
+			log.Fatal("User event data request failed.")
+		}
+
 		ctx.HTML(http.StatusOK, "index.html", gin.H{
-			"content": "hello world",
+			"content": events,
 		})
 	})
 

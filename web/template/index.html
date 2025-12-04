@@ -12,7 +12,11 @@
 				<h1>What is Wyatt Doing?</h1>
 			</div>
 			<div id="content">
-				{{.content}}
+				<ul>
+					{{range .content}}
+					<li>{{.Type}}{{.CreatedAt}}</li>
+					{{end}}
+				</ul>
 			</div>
 		</main>
 	</body>

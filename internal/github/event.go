@@ -17,3 +17,21 @@ type Event struct {
 	Public    bool       `json:"public"`
 	CreatedAt time.Time  `json:"created_at"`
 }
+
+type DisplayEvent struct {
+	ID        string
+	Type      string
+	RepoName  string
+	RepoURL   string
+	Timestamp time.Time
+}
+
+func (e Event) Display() DisplayEvent {
+	return DisplayEvent{
+		ID:        e.ID,
+		Type:      string(e.Type),
+		RepoName:  e.Repo.Name,
+		RepoURL:   e.Repo.URL,
+		Timestamp: e.CreatedAt,
+	}
+}
