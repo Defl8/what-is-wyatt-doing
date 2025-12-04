@@ -14,7 +14,7 @@
 			<div id="content">
 				<ul>
 					{{range .content}}
-					<li>{{.Type}}{{.CreatedAt}}</li>
+					<li>{{.Type}} <a href="{{.RepoURL}}">{{.RepoName}}</a> {{.Timestamp}}</li>
 					{{end}}
 				</ul>
 			</div>

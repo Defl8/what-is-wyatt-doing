@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/Defl8/what-is-wyatt-doing/internal/requests"
+	"github.com/Defl8/what-is-wyatt-doing/internal/github"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -33,8 +34,13 @@ func main() {
 			log.Fatal("User event data request failed.")
 		}
 
+		displayEvents := []github.DisplayEvent{}
+		for _, e := range *events {
+			displayEvents = append(displayEvents, e.Display())
+		}
+
 		ctx.HTML(http.StatusOK, "index.html", gin.H{
-			"content": events,
+			"content": displayEvents,
 		})
 	})
 

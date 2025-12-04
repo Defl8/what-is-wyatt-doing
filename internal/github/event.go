@@ -1,6 +1,9 @@
 package github
 
-import "time"
+import (
+	"strings"
+	"time"
+)
 
 type EventType string
 
@@ -23,15 +26,16 @@ type DisplayEvent struct {
 	Type      string
 	RepoName  string
 	RepoURL   string
-	Timestamp time.Time
+	Timestamp string
 }
 
 func (e Event) Display() DisplayEvent {
+	eventType := strings.Split(string(e.Type), "Event")[0]
 	return DisplayEvent{
 		ID:        e.ID,
-		Type:      string(e.Type),
+		Type:      eventType,
 		RepoName:  e.Repo.Name,
-		RepoURL:   e.Repo.URL,
-		Timestamp: e.CreatedAt,
+		RepoURL:   "https://github.com/" + e.Repo.Name,
+		Timestamp: e.CreatedAt.Local().Format("2006-01-02 15:04:05"),
 	}
 }
