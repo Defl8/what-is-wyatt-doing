@@ -16,8 +16,8 @@ func main() {
 
 
 	router.GET("/stinky", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H {
-			"msg": "Hello, World",
+		ctx.HTML(http.StatusOK, "index.html", gin.H {
+			"content": "hello world",
 		})
 	})
 
