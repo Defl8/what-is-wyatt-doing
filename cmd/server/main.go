@@ -26,7 +26,7 @@ func main() {
 	// Load Static Content
 	router.Static("/static", "web/static/")
 
-	reqHandler := requests.NewRequestHandler(nil)
+	reqHandler := requests.NewRequestHandler(nil, os.Getenv("GITHUB_TOKEN"))
 
 	router.GET("/stinky", func(ctx *gin.Context) {
 		events, err := reqHandler.GetPublicUserEvents("Defl8")

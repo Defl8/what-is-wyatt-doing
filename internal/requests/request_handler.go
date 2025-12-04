@@ -20,19 +20,22 @@ const (
 )
 
 type RequestHandler struct {
-	BaseURL string
+	BaseURL   string
+	AuthToken string
 }
 
-func NewRequestHandler(endpoint *string) *RequestHandler {
+func NewRequestHandler(endpoint *string, authToken string) *RequestHandler {
 
 	if endpoint == nil {
 		return &RequestHandler{
-			BaseURL: "",
+			BaseURL:   "",
+			AuthToken: authToken,
 		}
 	}
 
 	return &RequestHandler{
-		BaseURL: *endpoint,
+		BaseURL:   *endpoint,
+		AuthToken: authToken,
 	}
 }
 
@@ -41,6 +44,7 @@ func (rH RequestHandler) GetPublicUserEvents(user string) (*[]github.Event, erro
 
 	headers := map[string]string{
 		"Accept": "application/vnd.github+json",
+		"Authorization": "Bearer " + rH.AuthToken,
 	}
 
 	resp, err := rH.MakeRequest(GET, "users/Defl8/events", headers)
