@@ -1,9 +1,19 @@
 package main
 
 import (
+	"log"
 	"net/http"
+
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
+
+func init() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Failed to load .env file.")
+	}
+}
 
 func main() {
 	router := gin.Default()
