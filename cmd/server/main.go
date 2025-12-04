@@ -3,14 +3,14 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
 
 func init() {
-	err := godotenv.Load()
-	if err != nil {
+	if err := godotenv.Load(); err != nil && os.Getenv("ENV") != "PROD" {
 		log.Fatal("Failed to load .env file.")
 	}
 }
@@ -24,9 +24,8 @@ func main() {
 	// Load Static Content
 	router.Static("/static", "web/static/")
 
-
 	router.GET("/stinky", func(ctx *gin.Context) {
-		ctx.HTML(http.StatusOK, "index.html", gin.H {
+		ctx.HTML(http.StatusOK, "index.html", gin.H{
 			"content": "hello world",
 		})
 	})
