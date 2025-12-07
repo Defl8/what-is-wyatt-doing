@@ -1,6 +1,6 @@
 module github.com/Defl8/what-is-wyatt-doing
 
-go 1.25.4
+go 1.23
 
 require (
 	github.com/gin-gonic/gin v1.11.0
