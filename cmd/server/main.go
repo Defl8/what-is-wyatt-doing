@@ -44,5 +44,5 @@ func main() {
 		})
 	})
 
-	router.Run("localhost:6969")
+	router.Run("0.0.0.0:" + os.Getenv("PORT"))
 }
